@@ -1,4 +1,4 @@
-# fi-preset-mock
+# vue-cli-plugin-mock
 提供本地 mock 数据功能
 * 简单书写
 * 自动重载 mock 数据
@@ -7,12 +7,12 @@
 ## Install
 
 ```bash
-yarn add @360es/fi-preset-mock --dev
+yarn add vue-cli-plugin-mock
 ```
 
 ## Usage
 
-1. 编写 mock 数据文件，比如 ./test/mock.js
+1. 编写 mock 数据文件，比如 ./mock/index.js
 ```js
 const mockMap = { 
   'GET /api/user': {
@@ -61,13 +61,13 @@ const mockMap = {
 module.exports = mockMap;
 ```
 
-2. 在 fi.config.js 中添加 preset
+2. 在 vue.config.js 中添加 preset
 
 ```js
 module.exports = {
-  presets: [
-    require('@360es/fi-preset-mock')({entry:'./test/mock.js',debug:true})
-  ]
+  pluginOptions:{
+    mock:{entry:'./test/mock.js',debug:true}
+  }
 }
 ```
 3. test mock
