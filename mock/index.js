@@ -31,10 +31,10 @@ module.exports = function(options) {
   let watchConfig = {entry: watchFile, interval: options.interval || 300};
 
   if (existWebpack) {
-    console.log('use webpack watch mock file.');
+    debug('use webpack watch mock file.');
     webpackWatch(watchConfig, watchCallback);
   } else {
-    console.log('use fs watchFile mock file.');
+    debug('use fs watchFile mock file.');
     fsWatch(watchConfig, watchCallback);
   }
 
@@ -52,7 +52,12 @@ module.exports = function(options) {
         const result = pathMatch({sensitive: false, strict: false, end: false});
         const match = result(route.path);
         req.params = match(parse(req.url).pathname);
-        route.handler(req, res, next);
+        try{
+          route.handler(req, res, next);
+        }catch(err){
+          console.log(err);
+          next(err);
+        }
       });
     } else {
       next();
