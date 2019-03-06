@@ -10,15 +10,8 @@ let logcat = require('./logger');
 let fsWatch = require('./fsWatch');
 let webpackWatch = require('./webpackWatch');
 let mockRouteMap = {};
-let existWebpack = false;
 
-module.exports = function(options) {
-  try {
-    require('webpack');
-    existWebpack = true;
-  } catch (e) {
-    // ignore
-  }
+module.exports = function(options, useWebpack) {
   options = options || {};
   let entry = options.entry;
   if (options.debug) {
@@ -28,9 +21,9 @@ module.exports = function(options) {
     throw new Error('Mocker file does not exist!.');
   }
   let watchFile = path.resolve(entry);
-  let watchConfig = {entry: watchFile, interval: options.interval || 300};
+  let watchConfig = { entry: watchFile, interval: options.interval || 300 };
 
-  if (existWebpack) {
+  if (useWebpack) {
     debug('use webpack watch mock file.');
     webpackWatch(watchConfig, watchCallback);
   } else {
@@ -42,19 +35,19 @@ module.exports = function(options) {
     let route = matchRoute(req);
     if (route) {
       //match url
-      logcat(`${route.method.toUpperCase()} ${route.path}`);
+      logcat(`matched route:${route.method.toUpperCase()} ${route.path}`);
       let bodyParserMethd = bodyParser.json();
       const contentType = req.get('Content-Type');
       if (contentType === 'text/plain') {
-        bodyParserMethd = bodyParser.raw({type: 'text/plain'});
+        bodyParserMethd = bodyParser.raw({ type: 'text/plain' });
       }
       bodyParserMethd(req, res, function() {
-        const result = pathMatch({sensitive: false, strict: false, end: false});
+        const result = pathMatch({ sensitive: false, strict: false, end: false });
         const match = result(route.path);
         req.params = match(parse(req.url).pathname);
-        try{
+        try {
           route.handler(req, res, next);
-        }catch(err){
+        } catch (err) {
           console.log(err);
           next(err);
         }
@@ -71,7 +64,7 @@ module.exports = function(options) {
 
   function createRoute(mockModule) {
     Object.keys(mockModule).forEach((key) => {
-      let {method, path} = parseKey(key);
+      let { method, path } = parseKey(key);
       let handler = mockModule[key];
       let regexp = new RegExp('^' + path.replace(/(:\w*)[^/]/gi, '(.*)') + '$');
       let route;
@@ -117,7 +110,7 @@ function parseKey(key) {
     method = splited[0].toLowerCase();
     path = splited[1];
   }
-  return {method, path};
+  return { method, path };
 }
 
 function pathMatch(options) {
