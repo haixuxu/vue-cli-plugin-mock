@@ -4,7 +4,7 @@ var express = require('express');
 var request = require('supertest');
 var expressMock = require('../mock/index');
 
-var entry = './fixtures/entry.js';
+var entry = path.resolve(__dirname,'./fixtures/entry.js');
 
 var min = 60 * 1000;
 

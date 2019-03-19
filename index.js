@@ -5,12 +5,11 @@ module.exports = (api, options) => {
   if (process.env.NODE_ENV === 'development') {
     const webpack = require(api.resolve('node_modules/webpack'));
     webpackWatch.configWebpack(webpack);
-    if (options.pluginOptions && options.pluginOptions.mock) {
-      api.configureDevServer(function(app, server) {
-        app.use(MockMiddleware(options.pluginOptions.mock, true));
-      });
-    } else {
-      throw Error('vue-cli-plugin-mock need mock option in vue.config.js pluginOptions');
-    }
+    const mockOptions = options.pluginOptions && options.pluginOptions.mock || {};
+    let entry = mockOptions.entry || './mock/index.js';
+    mockOptions.entry = api.resolve(entry);
+    api.configureDevServer(function (app, server) {
+      app.use(MockMiddleware(mockOptions, true));
+    });
   }
 };

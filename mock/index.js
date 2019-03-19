@@ -17,11 +17,11 @@ module.exports = function(options, useWebpack) {
   if (options.debug) {
     debug = console.log.bind(console, chalk.blue('[MOCK:DEBUG] '));
   }
-  if (!entry) {
-    throw new Error('Mocker file does not exist!.');
-  }
-  let watchFile = path.resolve(entry);
-  let watchConfig = { entry: watchFile, interval: options.interval || 300 };
+  // if (!entry) {
+  //   throw new Error('Mocker file does not exist!.');
+  // }
+  // let watchFile = path.resolve(entry);
+  let watchConfig = { entry: entry, interval: options.interval || 300 };
 
   if (useWebpack) {
     debug('use webpack watch mock file.');

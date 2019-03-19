@@ -85,7 +85,7 @@ module.exports = {
 ## Options
 
 ### entry
-mock 数据入口，该文件会根据项目的 babel 配置编译
+mock 数据入口，默认为./mock/index.js.该文件会根据项目的 babel 配置编译
 
 ### debug
 是否开启本地调试信息，默认 false
