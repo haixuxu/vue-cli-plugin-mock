@@ -9,7 +9,10 @@
 ```bash
 yarn add vue-cli-plugin-mock
 ```
-
+## Install with vue-cli3
+```bash
+vue add vue-cli-plugin-mock
+```
 ## Usage
 
 1. 编写 mock 数据文件，比如 ./mock/index.js
