@@ -69,28 +69,18 @@ module.exports = function(options, useWebpack) {
       let { method, path } = parseKey(key);
       let handler = mockModule[key];
       let regexp = new RegExp('^' + path.replace(/(:\w*)[^/]/gi, '(.*)') + '$');
-      let route;
+      let route = { path, method, regexp };
       if (typeof handler === 'function') {
-        route = {
-          path: path,
-          method: method,
-          regexp: regexp,
-          handler: mockModule[key],
-        };
+        route.handler = mockModule[key];
       } else {
-        route = {
-          path: path,
-          method: method,
-          regexp: regexp,
-          handler: (req, res) => res.json(mockModule[key]),
-        };
+        route.handler = (req, res) => res.json(mockModule[key]);
       }
       if (!mockRouteMap[method]) {
         mockRouteMap[method] = [];
       }
+      debug('createRoute:' + ' path:' + route.path + '  method:' + route.method);
       mockRouteMap[method].push(route);
     });
-    debug('createRoute:\n' + JSON.stringify(mockRouteMap, null, 4));
     logcat('Done: Hot Mocker file replacement success!');
   }
 
