@@ -21,7 +21,7 @@ module.exports = function(options, useWebpack) {
   //   throw new Error('Mocker file does not exist!.');
   // }
   // let watchFile = path.resolve(entry);
-  let watchConfig = { entry: entry, interval: options.interval || 300 };
+  let watchConfig = { entry: entry, interval: options.interval || 200 };
 
   if (useWebpack) {
     debug('use webpack watch mock file.');
