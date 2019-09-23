@@ -9,7 +9,7 @@ module.exports = function(options, callback) {
   logcat('watch mock file:' + options.entry);
   requireFile(options.entry).then(callback);
   //watch file change to create route map
-  fs.watchFile(options.entry, {interval: options.interval}, function() {
+  fs.watchFile(options.entry, { interval: options.interval }, function() {
     requireFile(options.entry).then(callback);
   });
 };
@@ -22,8 +22,7 @@ function requireFile(watchFile) {
       const mockModule = require(watchFile);
       resolve(mockModule);
     } catch (err) {
-      logcat('Done: Hot Mocker file replacement failed!\n' +
-        chalk.red(err.stack));
+      logcat('Done: Hot Mocker file replacement failed!\n' + chalk.red(err.stack));
       reject(err);
     }
   });

@@ -41,7 +41,7 @@ module.exports = function(options, useWebpack) {
       if (contentType === 'text/plain') {
         bodyParserMethd = bodyParser.raw({ type: 'text/plain' });
       } else if (contentType === 'application/x-www-form-urlencoded') {
-        bodyParserMethd = bodyParser.urlencoded({extended: false});
+        bodyParserMethd = bodyParser.urlencoded({ extended: false });
       }
       bodyParserMethd(req, res, function() {
         const result = pathMatch({ sensitive: false, strict: false, end: false });

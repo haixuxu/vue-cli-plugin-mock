@@ -39,11 +39,11 @@ export default {
     },
     'DELETE /api/user/:id': (req, res) => {
         // console.log(req.params.id);
-        res.send({ status: 'ok', message: '删除成功！' });
+        res.send({ status: 'ok', message: 'delete success!' });
     },
     'PUT /api/user/:id': (req, res) => {
         // console.log(req.params.id);
         // console.log(req.body);
-        res.send({ status: 'ok', message: '修改成功！' });
+        res.send({ status: 'ok', message: 'update success！' });
     },
 }

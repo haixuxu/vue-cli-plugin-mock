@@ -56,6 +56,6 @@ module.exports = {
     }
   },
   'DELETE /api/user/:id': (req, res) => {
-    res.send({status: 'ok', message: '删除成功！'});
+    res.send({status: 'ok', message: 'delete success!'});
   },
 };

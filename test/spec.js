@@ -88,6 +88,6 @@ describe('mock api', function() {
   it('should can accept DELETE params', function(done) {
     var app = express().use(expressMock({entry: entry}));
     request(app).delete('/api/user/122').
-        expect(200, {status: 'ok', message: '删除成功！'}, done);
+        expect(200, {status: 'ok', message: 'delete success!'}, done);
   });
 });
