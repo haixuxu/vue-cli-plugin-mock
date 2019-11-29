@@ -19,6 +19,10 @@ yarn add vue-cli-plugin-mock
 vue add vue-cli-plugin-mock
 ```
 
+## example app
+
+https://github.com/xuxihai123/vue-cli-mock-example
+
 ## Usage
 
 1. writing a entry file. for examples ./mock/index.js
