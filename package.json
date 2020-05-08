@@ -1,8 +1,13 @@
 {
   "name": "vue-cli-plugin-mock",
-  "version": "0.0.10",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "keywords": [
+    "vue",
+    "cli",
+    "mock"
+  ],
   "scripts": {
     "lint": "eslint ./",
     "test": "mocha  --check-leaks --bail --exit --reporter spec test/"
@@ -12,13 +17,13 @@
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "debug": "^3.1.0",
-    "eslint": "^6.0.1",
     "memory-fs": "^0.4.1",
     "path-to-regexp": "^2.2.1"
   },
   "devDependencies": {
     "express": "4.16.3",
     "mocha": "5.2.0",
+    "eslint": "^6.x",
     "supertest": "3.1.0"
   }
 }
