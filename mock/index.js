@@ -4,14 +4,16 @@ const bodyParser = require('body-parser');
 const pathToRegexp = require('path-to-regexp');
 const chalk = require('chalk');
 const parse = require('url').parse;
+const express = require('express');
 
+const app = express();
 let debug = require('debug')('express:mock');
 let logcat = require('./logger');
 let fsWatch = require('./fsWatch');
 let webpackWatch = require('./webpackWatch');
 let mockRouteMap = {};
 
-module.exports = function(options, useWebpack) {
+module.exports = function (options, useWebpack) {
   options = options || {};
   let entry = options.entry;
   if (options.debug) {
@@ -31,7 +33,14 @@ module.exports = function(options, useWebpack) {
     fsWatch(watchConfig, watchCallback);
   }
 
-  return function(req, res, next) {
+  return function (req, res, next) {
+    // support browser-sync middleware
+    if (!('get' in req)) {
+      Object.setPrototypeOf(req, app.request);
+      Object.setPrototypeOf(res, app.response);
+      req.res = res;
+      res.req = req;
+    }
     let route = matchRoute(req);
     if (route) {
       //match url
@@ -43,7 +52,7 @@ module.exports = function(options, useWebpack) {
       } else if (contentType === 'application/x-www-form-urlencoded') {
         bodyParserMethd = bodyParser.urlencoded({ extended: false });
       }
-      bodyParserMethd(req, res, function() {
+      bodyParserMethd(req, res, function () {
         const result = pathMatch({ sensitive: false, strict: false, end: false });
         const match = result(route.path);
         req.params = match(parse(req.url).pathname);
@@ -107,10 +116,10 @@ function parseKey(key) {
 
 function pathMatch(options) {
   options = options || {};
-  return function(path) {
+  return function (path) {
     let keys = [];
     let re = pathToRegexp(path, keys, options);
-    return function(pathname, params) {
+    return function (pathname, params) {
       let m = re.exec(pathname);
       if (!m) return false;
       params = params || {};
