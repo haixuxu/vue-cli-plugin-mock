@@ -2,6 +2,7 @@ const Module = require('module');
 const path = require('path');
 const chalk = require('chalk');
 const MemoryFS = require('memory-fs');
+const logcat = require('./logger');
 
 let webpacInstance;
 let ProgressPlugin;
@@ -43,7 +44,7 @@ function Watcher(options, callback) {
     plugins: ProgressPlugin ? [new ProgressPlugin({})] : [],
   });
   compiler.outputFileSystem = mfs;
-  compiler.watch({aggregateTimeout: options.interval}, function(error, stats) {
+  compiler.watch({ aggregateTimeout: options.interval }, function (error, stats) {
     if (error) {
       console.log(chalk.red(error));
       return;
@@ -55,13 +56,13 @@ function Watcher(options, callback) {
     }
     try {
       // Read each file and compile module
-      const {outputPath} = compiler;
+      const { outputPath } = compiler;
       const filepath = path.join(outputPath, outputfile);
       const content = mfs.readFileSync(filepath, 'utf8');
       const outputModule = requireFromString(content, filepath);
       if (outputModule) {
         const mockMap = outputModule.default || outputModule || {};
-        console.log('[MOCK] refresh mock service...');
+        logcat.log('refreshing mock service...');
         callback(mockMap);
       }
     } catch (err) {
@@ -70,7 +71,7 @@ function Watcher(options, callback) {
   });
 }
 
-Watcher.configWebpack = function(webpack) {
+Watcher.configWebpack = function (webpack) {
   webpacInstance = webpack;
 };
 

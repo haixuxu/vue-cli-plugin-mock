@@ -1,28 +1,27 @@
 const fs = require('fs');
 const chalk = require('chalk');
 const logcat = require('./logger');
-let debug = require('debug')('express:mock');
 /**
  * use fs.watchFile
  */
-module.exports = function(options, callback) {
-  logcat('watch mock file:' + options.entry);
+module.exports = function (options, callback) {
+  logcat.log('watch mock file:' + options.entry);
   requireFile(options.entry).then(callback);
   //watch file change to create route map
-  fs.watchFile(options.entry, { interval: options.interval }, function() {
+  fs.watchFile(options.entry, { interval: options.interval }, function () {
     requireFile(options.entry).then(callback);
   });
 };
 
 function requireFile(watchFile) {
-  return new Promise(function(resolve, reject) {
-    debug('refresh watch file...');
+  return new Promise(function (resolve, reject) {
+    logcat.log('refresh watch file...');
     try {
       delete require.cache[require.resolve(watchFile)];
       const mockModule = require(watchFile);
       resolve(mockModule);
     } catch (err) {
-      logcat('Done: Hot Mocker file replacement failed!\n' + chalk.red(err.stack));
+      logcat.log('Done: Hot Mocker file replacement failed!\n' + chalk.red(err.stack));
       reject(err);
     }
   });

@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-mock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "keywords": [
@@ -14,16 +14,13 @@
   },
   "repository": "https://github.com/xuxihai123/vue-cli-plugin-mock",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "chalk": "^2.4.1",
-    "debug": "^3.1.0",
-    "memory-fs": "^0.4.1",
-    "path-to-regexp": "^2.2.1"
+    "express-mock-restful": "^1.1.2",
+    "memory-fs": "^0.4.1"
   },
   "devDependencies": {
+    "eslint": "^6.x",
     "express": "4.16.3",
     "mocha": "5.2.0",
-    "eslint": "^6.x",
     "supertest": "3.1.0"
   }
 }
