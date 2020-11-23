@@ -7,7 +7,7 @@ module.exports = (api, options) => {
     webpackWatch.configWebpack(webpack);
     const mockOptions = options.pluginOptions && options.pluginOptions.mock || {};
     if (mockOptions.disable) {
-      logger('mock middleware disabled!');
+      logger.log('mock middleware disabled!');
       return;
     }
     let entry = mockOptions.entry || './mock/index.js';
