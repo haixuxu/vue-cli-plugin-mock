@@ -1,6 +1,8 @@
 # vue-cli-plugin-mock
 
-[![Build Status](https://travis-ci.org/xuxihai123/vue-cli-plugin-mock.svg?branch=master)](https://travis-ci.org/xuxihai123/vue-cli-plugin-mock)
+![Build Status](https://img.shields.io/github/workflow/status/xuxihai123/vue-cli-plugin-mock/test/master)
+![Npm Version](https://img.shields.io/npm/v/vue-cli-plugin-mock)
+![License](https://img.shields.io/npm/l/vue-cli-plugin-mock)
 
 A package for local mock data functionality
 
