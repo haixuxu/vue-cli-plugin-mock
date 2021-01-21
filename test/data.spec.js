@@ -25,42 +25,22 @@ describe('mock datasource list', function () {
   it('should can mock object vlaue', function (done) {
     var app = express().use(expressMock({ entry: entry }));
 
-    request(app).get('/api/user').expect(
-      200,
-      {
-        username: 'admin',
-        sex: 5,
-      },
-      done,
-    );
+    request(app).get('/api/user').expect(200, { username: 'admin', sex: 5 }, done);
   });
   it('should can mock with query params', function (done) {
     var app = express().use(expressMock({ entry: entry }));
-
-    request(app)
-      .get('/api/list?limit=10&offset=0')
-      .expect(
-        200,
-        {
-          limit: 10,
-          offset: 0,
-          list: [
-            {
-              username: 'admin1',
-              sex: 1,
-            },
-            {
-              username: 'admin2',
-              sex: 0,
-            },
-          ],
-        },
-        done,
-      );
+    var obj = {
+      limit: 10,
+      offset: 0,
+      list: [
+        { username: 'admin1', sex: 1 },
+        { username: 'admin2', sex: 0 },
+      ],
+    };
+    request(app).get('/api/list?limit=10&offset=0').expect(200, obj, done);
   });
   it('should can mock function', function (done) {
     var app = express().use(expressMock({ entry: entry }));
-
     request(app).get('/repos/hello').expect(200, { text: 'this is from mock server' }, done);
   });
 
@@ -81,23 +61,17 @@ describe('mock datasource list', function () {
   });
   it('should can accept POST params', function (done) {
     var app = express().use(expressMock({ entry: entry }));
-    request(app)
-      .post('/api/login/account')
-      .send({ username: 'admin', password: '888888' })
-      .expect(
-        200,
-        {
-          status: 'ok',
-          code: 0,
-          token: 'sdfsdfsdfdsf',
-          data: {
-            id: 1,
-            username: 'kenny',
-            sex: 6,
-          },
-        },
-        done,
-      );
+    var obj = {
+      status: 'ok',
+      code: 0,
+      token: 'sdfsdfsdfdsf',
+      data: {
+        id: 1,
+        username: 'kenny',
+        sex: 6,
+      },
+    };
+    request(app).post('/api/login/account').send({ username: 'admin', password: '888888' }).expect(200, obj, done);
   });
   it('should can accept DELETE params', function (done) {
     var app = express().use(expressMock({ entry: entry }));
