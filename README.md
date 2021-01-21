@@ -1,5 +1,7 @@
 # vue-cli-plugin-mock
 
+[![Build Status](https://travis-ci.org/xuxihai123/vue-cli-plugin-mock.svg?branch=master)](https://travis-ci.org/xuxihai123/vue-cli-plugin-mock)
+
 A package for local mock data functionality
 
 - Simple writing(Express.js style)
