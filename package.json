@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^6.x",
-    "express": "4.16.3",
+    "express": "4.19.2",
     "mocha": "5.2.0",
     "supertest": "3.1.0"
   }
